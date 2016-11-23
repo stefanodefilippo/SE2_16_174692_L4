@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <!-- Here goes the metadata -->  
-      <meta charset="utf-8">
-      <title> Employees </title>
-   </head>
+  <head>
+    <!-- Here goes the metadata -->  
+    <meta charset="utf-8">
+    <title> Employees </title>
+  </head>
+  
+  <script src="scripts\script.js"></script>
+  
+  <body>
     
-    <script src="scripts\script.js"></script>
+    <h2>Insert ID employee</h2>
+    <form action="http://127.0.0.1:1337/" method="POST" id = "searchOrDeleteForm" onsubmit="return validatesearchOrDeleteForm()">
+      <input type = 'text' name = "id">
+      <input type = "hidden" name = "action">
+      <button type="submit" onclick="searchInput()">search employee</button>
+      <button type="submit" onclick="deleteInput()">delete employee</button>
+    </form>
+    <br><br>
+    <button onclick="getElementById('employeeForm').hidden = false">Add or modify employee</button>
     
-   <body>
-       
-       <h2>Insert ID employee</h2>
-       <form action="http://127.0.0.1:1337/" method="POST" id = "searchOrDeleteForm">
-       <input type = 'text' name = "id">
-       <input type = "hidden" name = "action">
-       <button type="submit" onclick="searchInput()">search employee</button>
-       <button type="submit" onclick="deleteInput()">delete employee</button>
-       </form>
-       <br>
-       <button onclick="getElementById('employeeForm').hidden = false">add or modify employee</button>
-       
-       <form action="http://127.0.0.1:1337/" method="POST" id = "employeeForm" hidden >
-           id:<br> 
-           <input name="id"/><br>
-           name:<br> 
-            <input name="name"/><br>
-           surname:<br> 
-           <input name="surname"/><br>
-           salary:<br> 
-           <input name="salary"/><br>
-           level:<br> 
-           <input name="level"/><br>
-            <input type = "hidden" name = "action" value = "employeeData">
-            <input type="submit" onClick="return validatesearchOrDeleteForm()" value= "SendData">
-       </form>
-       
-              
-    </body>
+    <form action="http://127.0.0.1:1337/" method="POST" id = "employeeForm" hidden >
+      <br>
+      id:<br> 
+      <input name="id"/><br>
+      name:<br> 
+      <input name="name"/><br>
+      surname:<br> 
+      <input name="surname"/><br>
+      salary:<br> 
+      <input name="salary"/><br>
+      level:<br> 
+      <input name="level"/><br>
+      <input type = "hidden" name = "action" value = "employeeData">
+      <input type="submit" onClick="return validateemployeeForm()" value= "SendData">
+      <br><br>*if you don't insert the id when adding an employee, the first available id will be used<br>
+    </form>
+    
+    
+  </body>
 </html>
