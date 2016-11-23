@@ -24,8 +24,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set('port', (process.env.PORT || 1337));
 
-//use: for both POST and GET
-app.use('/', function(request, response) 
+//handle POST request
+app.post('/', function(request, response) 
 	{
 
 	    if ( typeof request.body !== 'undefined' && request.body)
@@ -35,18 +35,23 @@ app.use('/', function(request, response)
 		//typeOfRequest can be search, delete or employeeData
 		var typeOfRequest = request.body.action;
 
-        //parameters of the submitted form
+        //search the employee with the submitted id
 		var employee = moduloEmployee.search(request.body.id);
+        //data of the discovered employee
 		var id = parseInt(employee[0]);
 		var name = employee[1];
         var surname = employee[2];
 		var salary = employee[3];
 		var level = employee[4];
         //message for the response page
-		var message = "Employee found"
-		if(isNaN(id)){
+		var message = "Employee found";
+        //boolean that decides to show or not the employeeForm in the respons page
+        var hideForm = false;
+		
+        if(isNaN(id)){
 		    id = "";
  		    message = "Employee not found"
+            hideForm = true;
 		}
 		
         //block executed delete an employee from the list
@@ -60,6 +65,7 @@ app.use('/', function(request, response)
 			salary = "";
 			level = "";
 		    }
+            hideForm = true;
 		}	
 
         //block executed to add or modify an employee
@@ -75,14 +81,14 @@ app.use('/', function(request, response)
 			moduloEmployee.addEmployee(request.body.id, name, surname, salary, level);
 			message = "Employee added";
 		    }
+            hideForm = true;
 		}
-
-
 
 		bind.toFile('./home.tpl', 
 			    {
 				//set up parameters for the page that is returned to the user
-				message: message,
+				hideForm: hideForm,
+                message: message,
 				id: id,
 				name: name,
 				surname: surname,

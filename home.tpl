@@ -18,8 +18,9 @@
        <button type="submit" onclick="deleteInput()">delete employee</button>
        </form>
        <br><br>
-       <b>Add or modify employee</b>
-       <form action="http://127.0.0.1:1337/" method="POST" id = "employeeForm">
+       <button onclick="dis_appearForm()">Add or modify employee</button>
+       
+       <form action="http://127.0.0.1:1337/" method="POST" id = "employeeForm" (:if[hideForm] ~ [:then ~ hidden:]:)>
            <br>
            id:<br> 
            <input name="id" value= "(:id:)"/><br>
